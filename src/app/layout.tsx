@@ -40,20 +40,20 @@ export default async function RootLayout({
         )}
       >
         <NextTopLoader color='var(--primary)' showSpinner={false} />
-        <NuqsAdapter>
-          <ThemeProvider
-            attribute='class'
-            defaultTheme='system'
-            enableSystem
-            disableTransitionOnChange
-            enableColorScheme
-          >
+        <ThemeProvider
+          attribute='class'
+          defaultTheme='system'
+          enableSystem
+          disableTransitionOnChange
+          enableColorScheme
+        >
+          <NuqsAdapter>
             <Providers activeThemeValue={themeToApply}>
               <Toaster />
               {children}
             </Providers>
-          </ThemeProvider>
-        </NuqsAdapter>
+          </NuqsAdapter>
+        </ThemeProvider>
       </body>
     </html>
   );
