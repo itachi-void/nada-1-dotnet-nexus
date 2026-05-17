@@ -89,6 +89,8 @@ import {
   IconUsers,
   IconVideo,
   IconCrown,
+  IconMail,
+  IconWorld,
   IconX
 } from '@tabler/icons-react';
 
@@ -214,5 +216,7 @@ export const Icons = {
   slash: IconSlash,
   calendar: IconCalendar,
   galleryVerticalEnd: IconStack2,
-  moreHorizontal: IconDots
+  moreHorizontal: IconDots,
+  mail: IconMail,
+  globe: IconWorld
 };

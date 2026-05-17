@@ -10,11 +10,17 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import { UserAvatarProfile } from '@/components/user-avatar-profile';
-import { SignOutButton, useUser } from '@clerk/nextjs';
+import { MOCK_USER, clearMockCookie } from '@/lib/mock-auth';
 import { useRouter } from 'next/navigation';
 export function UserNav() {
-  const { user } = useUser();
+  const user = MOCK_USER;
   const router = useRouter();
+
+  const handleLogout = () => {
+    clearMockCookie();
+    router.push('/auth/sign-in');
+  };
+
   if (user) {
     return (
       <DropdownMenu>
@@ -44,13 +50,13 @@ export function UserNav() {
             <DropdownMenuItem onClick={() => router.push('/dashboard/profile')}>
               Profile
             </DropdownMenuItem>
-            <DropdownMenuItem>Billing</DropdownMenuItem>
-            <DropdownMenuItem>Settings</DropdownMenuItem>
-            <DropdownMenuItem>New Team</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => router.push('/dashboard/billing')}>Billing</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => router.push('/dashboard/profile')}>Settings</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => router.push('/dashboard/workspaces')}>New Team</DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>
-            <SignOutButton redirectUrl='/auth/sign-in' />
+          <DropdownMenuItem onClick={handleLogout}>
+            <span>Sign Out</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

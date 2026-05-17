@@ -1,29 +1,33 @@
-import { buttonVariants } from '@/components/ui/button';
+'use client';
+
+import React, { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
-import { SignUp as ClerkSignUpForm } from '@clerk/nextjs';
-import { GitHubLogoIcon } from '@radix-ui/react-icons';
-import { Icons } from '@/components/icons';
-import { Metadata } from 'next';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { InteractiveGridPattern } from './interactive-grid';
-
-export const metadata: Metadata = {
-  title: 'Authentication',
-  description: 'Authentication forms built using the components.'
-};
+import { setMockCookie } from '@/lib/mock-auth';
 
 export default function SignUpViewPage() {
+  const router = useRouter();
+  const [name, setName] = useState('Nada Tarek');
+  const [email, setEmail] = useState('admin@test.com');
+  const [password, setPassword] = useState('admin123');
+  const [loading, setLoading] = useState(false);
+
+  const handleSignUp = (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setTimeout(() => {
+      setMockCookie();
+      router.push('/dashboard/overview');
+    }, 800);
+  };
+
   return (
-    <div className='relative h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0'>
-      <Link
-        href='/examples/authentication'
-        className={cn(
-          buttonVariants({ variant: 'ghost' }),
-          'absolute top-4 right-4 hidden md:top-8 md:right-8'
-        )}
-      >
-        Sign Up
-      </Link>
+    <div className='relative flex min-h-screen flex-col items-center justify-center overflow-hidden md:grid lg:max-w-none lg:grid-cols-2 lg:px-0 bg-background'>
       <div className='bg-muted relative hidden h-full flex-col p-10 text-white lg:flex dark:border-r'>
         <div className='absolute inset-0 bg-zinc-900' />
         <div className='relative z-20 flex items-center text-lg font-medium gap-2'>
@@ -40,51 +44,88 @@ export default function SignUpViewPage() {
         />
         <div className='relative z-20 mt-auto'>
           <blockquote className='space-y-2'>
-            <p className='text-lg leading-relaxed'>
+            <p className='text-lg leading-relaxed text-zinc-300'>
               &ldquo;Building secure, scalable, and highly optimized enterprise web applications using ASP.NET Core, C#, and React is my mission. This dashboard represents a seamless integration of robust backend design with modern frontend user interfaces.&rdquo;
             </p>
             <footer className='text-sm font-semibold text-primary'>Nada Tarek — Full Stack .NET Developer</footer>
           </blockquote>
         </div>
       </div>
-      <div className='flex h-full items-center justify-center p-4 lg:p-8'>
-        <div className='flex w-full max-w-md flex-col items-center justify-center space-y-6'>
-          <ClerkSignUpForm
-            initialValues={{
-              emailAddress: 'admin@test.com'
-            }}
-          />
-          <div className='text-muted-foreground space-y-2 px-8 text-center text-xs'>
+      <div className='flex h-full items-center justify-center p-4 lg:p-8 w-full z-10'>
+        <div className='flex w-full max-w-sm flex-col space-y-6 bg-card border p-8 rounded-2xl shadow-lg'>
+          <div className='flex flex-col space-y-2 text-center'>
+            <h1 className='text-2xl font-bold tracking-tight'>Create an Account</h1>
+            <p className='text-xs text-muted-foreground'>
+              Enter your details below to register your developer sandbox.
+            </p>
+          </div>
+
+          <form onSubmit={handleSignUp} className='space-y-4'>
+            <div className='space-y-2'>
+              <Label htmlFor='name'>Full Name</Label>
+              <Input
+                id='name'
+                type='text'
+                placeholder='Nada Tarek'
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className='h-10'
+              />
+            </div>
+            <div className='space-y-2'>
+              <Label htmlFor='email'>Email Address</Label>
+              <Input
+                id='email'
+                type='email'
+                placeholder='admin@test.com'
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className='h-10'
+              />
+            </div>
+            <div className='space-y-2'>
+              <Label htmlFor='password'>Password</Label>
+              <Input
+                id='password'
+                type='password'
+                placeholder='••••••••'
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className='h-10'
+              />
+            </div>
+            <Button type='submit' className='w-full h-10 font-medium' disabled={loading}>
+              {loading ? (
+                <span className='flex items-center gap-2'>
+                  <span className='h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent' />
+                  Registering...
+                </span>
+              ) : (
+                'Sign Up'
+              )}
+            </Button>
+          </form>
+
+          <div className='text-muted-foreground space-y-2 text-center text-xs border-t pt-4'>
             <p>
-              This is Nada Tarek's personal professional portfolio & admin dashboard. Authentication is handled securely by Clerk.
+              Already have an account?{' '}
+              <Link href='/auth/sign-in' className='text-primary font-semibold hover:underline'>
+                Sign In
+              </Link>
             </p>
             <p>
               <Link
                 href='https://github.com/itachi-void'
                 target='_blank'
-                className='hover:text-primary underline underline-offset-4'
+                className='hover:text-primary underline underline-offset-4 font-semibold text-primary'
               >
                 View Portfolio GitHub
               </Link>
             </p>
           </div>
-          <p className='text-muted-foreground px-8 text-center text-sm'>
-            By clicking continue, you agree to our{' '}
-            <Link
-              href='/terms-of-service'
-              className='hover:text-primary underline underline-offset-4'
-            >
-              Terms of Service
-            </Link>{' '}
-            and{' '}
-            <Link
-              href='/privacy-policy'
-              className='hover:text-primary underline underline-offset-4'
-            >
-              Privacy Policy
-            </Link>
-            .
-          </p>
         </div>
       </div>
     </div>
