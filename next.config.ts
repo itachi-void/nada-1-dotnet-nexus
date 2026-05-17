@@ -20,6 +20,11 @@ const baseConfig: NextConfig = {
         protocol: 'https',
         hostname: 'clerk.com',
         port: ''
+      },
+      {
+        protocol: 'https',
+        hostname: 'api.dicebear.com',
+        port: ''
       }
     ]
   },
