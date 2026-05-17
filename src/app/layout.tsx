@@ -7,14 +7,9 @@ import { cn } from '@/lib/utils';
 import type { Metadata, Viewport } from 'next';
 import { cookies } from 'next/headers';
 import NextTopLoader from 'nextjs-toploader';
-import Script from 'next/script';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import '../styles/globals.css';
 
-const META_THEME_COLORS = {
-  light: '#ffffff',
-  dark: '#09090b'
-};
 
 export const metadata: Metadata = {
   title: 'Nada Tarek | DotNet Nexus Dev Portal',
@@ -22,7 +17,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: META_THEME_COLORS.light
+  themeColor: '#ffffff'
 };
 
 export default async function RootLayout({
@@ -37,21 +32,7 @@ export default async function RootLayout({
 
   return (
     <html lang='en' suppressHydrationWarning data-theme={themeToApply}>
-      <head>
-        <Script
-          id='theme-color-fix'
-          strategy='beforeInteractive'
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                if (localStorage.theme === 'dark' || ((!('theme' in localStorage) || localStorage.theme === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '${META_THEME_COLORS.dark}');
-                }
-              } catch (_) {}
-            `
-          }}
-        />
-      </head>
+      <head />
       <body
         className={cn(
           'bg-background overflow-x-hidden overscroll-none font-sans antialiased',
