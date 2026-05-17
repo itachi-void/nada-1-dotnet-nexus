@@ -37,20 +37,21 @@ export default async function RootLayout({
 
   return (
     <html lang='en' suppressHydrationWarning data-theme={themeToApply}>
-      <head />
-      <Script
-        id='theme-color-fix'
-        strategy='beforeInteractive'
-        dangerouslySetInnerHTML={{
-          __html: `
-            try {
-              if (localStorage.theme === 'dark' || ((!('theme' in localStorage) || localStorage.theme === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '${META_THEME_COLORS.dark}');
-              }
-            } catch (_) {}
-          `
-        }}
-      />
+      <head>
+        <Script
+          id='theme-color-fix'
+          strategy='beforeInteractive'
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                if (localStorage.theme === 'dark' || ((!('theme' in localStorage) || localStorage.theme === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '${META_THEME_COLORS.dark}');
+                }
+              } catch (_) {}
+            `
+          }}
+        />
+      </head>
       <body
         className={cn(
           'bg-background overflow-x-hidden overscroll-none font-sans antialiased',
