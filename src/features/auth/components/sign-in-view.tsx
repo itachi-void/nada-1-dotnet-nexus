@@ -60,6 +60,25 @@ export default function SignInViewPage() {
             </p>
           </div>
 
+          {/* Demo Credentials Hint */}
+          <div
+            className='rounded-xl border border-primary/30 bg-primary/5 px-4 py-3 space-y-1 cursor-pointer select-none'
+            onClick={() => {
+              setEmail('admin@test.com');
+              setPassword('admin123');
+            }}
+            title='Click to auto-fill credentials'
+          >
+            <p className='text-xs font-semibold text-primary flex items-center gap-1.5'>
+              <span className='inline-block h-2 w-2 rounded-full bg-green-500 animate-pulse' />
+              Demo Credentials — Click to auto-fill
+            </p>
+            <div className='flex flex-col gap-0.5 font-mono text-xs text-muted-foreground'>
+              <span>📧 <span className='text-foreground font-medium'>admin@test.com</span></span>
+              <span>🔑 <span className='text-foreground font-medium'>admin123</span></span>
+            </div>
+          </div>
+
           <form onSubmit={handleSignIn} className='space-y-4'>
             <div className='space-y-2'>
               <Label htmlFor='email'>Email Address</Label>
