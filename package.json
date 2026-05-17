@@ -4,12 +4,12 @@
   "description": "Professional portfolio and enterprise developer dashboard by Nada Tarek. Built with Next.js 16, React 19, and Tailwind CSS v4.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/NadaTarek/nada-1-dotnet-nexus.git"
+    "url": "https://github.com/itachi-void/nada-1-dotnet-nexus.git"
   },
   "private": true,
   "author": {
     "name": "Nada Tarek",
-    "url": "https://github.com/NadaTarek"
+    "url": "https://github.com/itachi-void"
   },
   "scripts": {
 "dev": "next dev",

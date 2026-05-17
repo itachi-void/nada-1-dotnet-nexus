@@ -59,7 +59,7 @@ export default function SignInViewPage() {
             </p>
             <p>
               <Link
-                href='https://github.com/NadaTarek'
+                href='https://github.com/itachi-void'
                 target='_blank'
                 className='hover:text-primary underline underline-offset-4'
               >
